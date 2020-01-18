@@ -79,7 +79,9 @@ def make_move(player, board):
         the board is modified in place when a valid move is entered
     '''
     # TODO: Implement function
-    while True:
+    player_x = player_name(1)
+    player_y = player_name(2)
+    if player_x == "X":
         response = input("X's move: ")
         if response.isnumeric(): # input takes this if the input registers as numeric characters
             position = int(response)
@@ -87,13 +89,16 @@ def make_move(player, board):
                 print("Enter a number between 1 and 9.")
             elif position > 9:
                 print("Enter a number between 1 and 9.")
+            elif position == 1:
+                board[0] = 1
 
-        elif response.isalpha(): # input takes this if input registers characters as string
-            position = str(response)
-            if response == "quit":
-                break
-            elif position != "quit":
-                print("Enter a number between 1 and 9.")
+    #     elif response.isalpha(): # input takes this if input registers characters as string
+    #         position = str(response)
+    #         if response == "quit":
+    #             break
+    #         elif position != "quit":
+    #             print("Enter a number between 1 and 9.")
+    # return None
 
 
 def check_win_horizontal(board):
