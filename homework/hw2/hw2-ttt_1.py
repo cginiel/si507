@@ -2,6 +2,9 @@
 # CONSTANTS
 PLAYER_NAMES = ["Nobody", "X", "O"] 
 
+# CURRENT PROBLEMS
+# game plays forever with a tie
+# need a quit function
 
 # FUNCTIONS
 def player_name(player_id):
@@ -79,20 +82,32 @@ def make_move(player, board):
         the board is modified in place when a valid move is entered
     '''
     # TODO: Implement function
-    print("=" * 45)
-    response = input(f"{player_name(player)} move: ")
-    if response.isnumeric(): # input takes this if the input registers as numeric characters
-        position = int(response)
-        if 0 < position < 10:
-            if board[position - 1] == 0:
-                board[position - 1] = player # the user's selection is indexed and sent to update board list
-            elif board[position - 1] != 0:
-                board = board
-                print(f"That's an invalid input, {player_name(player)}. Try again.")
-        elif position < 1:
-            print("Enter a number between 1 and 9.")
-        elif position > 9:
-            print("Enter a number between 1 and 9.")
+    x = 0 # this is the counter for our function. We break out of it with valid attempts. We stay in it with invalid attempts.
+    while x < 9:
+        print("=" * 45)
+        response = input(f"{player_name(player)} move: ")
+        if response.isnumeric(): # input takes this if the input registers as numeric characters
+            position = int(response)
+            if 0 < position < 10:
+                if board[position - 1] == 0: # this is saying IF THE INDEXED VALUE OF THE BOARD AT THE TIME OF TURN EQUALS ZERO (which it should for a valid turn) then let 'em occupy it!!!!!!!!
+                    board[position - 1] = player # the user's selection is indexed and sent to update board list
+                    x += 1
+                    break
+                elif board[position - 1] != 0:
+                    board = board
+                    x = x
+                    print(f"That's an invalid input, {player_name(player)}. Try again.")
+                    display_board(board)
+            elif position < 1:
+                x = x
+                print("Enter a number between 1 and 9.")
+                display_board(board)
+            elif position > 9:
+                x = x
+                print("Enter a number between 1 and 9.")
+                display_board(board)
+                
+        if response.isalpha():
 
 
 def check_win_horizontal(board):
@@ -173,13 +188,23 @@ def check_win(board):
 
     winner = check_win_horizontal(board)
     if (winner != 0):
+        display_board(board)
+        print(f"Congrats, {player_name(player)}, you smoked 'em!")
         return winner
     
     winner = check_win_vertical(board)
     if (winner != 0):
+        display_board(board)
+        print(f"Congrats, {player_name(player)}, you smoked 'em!")
         return winner
-    
-    return check_win_diagonal(board)
+   
+    winner = check_win_diagonal(board)
+    if (winner != 0):
+        display_board(board)
+        print(f"Congrats, {player_name(player)}, you smoked 'em!")
+        return winner
+
+    return 0
 
 
 def next_player(current_player):
