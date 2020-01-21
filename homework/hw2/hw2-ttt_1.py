@@ -1,10 +1,7 @@
 
+import sys
 # CONSTANTS
 PLAYER_NAMES = ["Nobody", "X", "O"] 
-
-# CURRENT PROBLEMS
-# game plays forever with a tie
-# need a quit function
 
 # FUNCTIONS
 def player_name(player_id):
@@ -85,7 +82,7 @@ def make_move(player, board):
     x = 0 # this is the counter for our function. We break out of it with valid attempts. We stay in it with invalid attempts.
     while x < 9:
         print("=" * 45)
-        response = input(f"{player_name(player)} move: ")
+        response = input(f"Type \"quit\" to quit.\n{player_name(player)}'s move: ")
         if response.isnumeric(): # input takes this if the input registers as numeric characters
             position = int(response)
             if 0 < position < 10:
@@ -106,8 +103,11 @@ def make_move(player, board):
                 x = x
                 print("Enter a number between 1 and 9.")
                 display_board(board)
-                
-        if response.isalpha():
+
+        elif response.isalpha():
+            position = str(response)
+            if position == "quit":
+                sys.exit(0)
 
 
 def check_win_horizontal(board):
@@ -189,19 +189,19 @@ def check_win(board):
     winner = check_win_horizontal(board)
     if (winner != 0):
         display_board(board)
-        print(f"Congrats, {player_name(player)}, you smoked 'em!")
+        print(f"Game over! {player_name(player)} wins!")
         return winner
     
     winner = check_win_vertical(board)
     if (winner != 0):
         display_board(board)
-        print(f"Congrats, {player_name(player)}, you smoked 'em!")
+        print(f"Game over! {player_name(player)} wins!")
         return winner
    
     winner = check_win_diagonal(board)
     if (winner != 0):
         display_board(board)
-        print(f"Congrats, {player_name(player)}, you smoked 'em!")
+        print(f"Game over! {player_name(player)} wins!")
         return winner
 
     return 0
@@ -246,3 +246,6 @@ while(moves_left > 0 and winner == 0):
     winner = check_win(board)
     player = next_player(player)
     moves_left -= 1
+    if moves_left == 0:
+        display_board(board)
+        print("Game over! Nobody wins!")
