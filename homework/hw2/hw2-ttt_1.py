@@ -79,21 +79,23 @@ def make_move(player, board):
         the board is modified in place when a valid move is entered
     '''
     # TODO: Implement function
-    while True:
-        response = input("X's move: ")
-        if response.isnumeric(): # input takes this if the input registers as numeric characters
-            position = int(response)
-            if position < 1:
-                print("Enter a number between 1 and 9.")
-            elif position > 9:
-                print("Enter a number between 1 and 9.")
+    print("=" * 45)
+    response = input(f"{player_name(player)} move: ")
+    if response.isnumeric(): # input takes this if the input registers as numeric characters
+        position = int(response)
+        if position < 1:
+            print("Enter a number between 1 and 9.")
+        elif position > 9:
+            print("Enter a number between 1 and 9.")
+        elif 0 < position < 10:
+            for i in range(len(board)):
+                if board[i] == 0:
+                    if (position - 1) == i:
+                        board[i] = player
+                elif board[i] != 0:
+                    board = board
+                    print("Invalid input!!!")
 
-        elif response.isalpha(): # input takes this if input registers characters as string
-            position = str(response)
-            if response == "quit":
-                break
-            elif position != "quit":
-                print("Enter a number between 1 and 9.")
 
 
 def check_win_horizontal(board):
@@ -122,6 +124,18 @@ def check_win_vertical(board):
     '''
     # TODO: write docstring
     # TODO: implement function
+    if (board[0] != 0 and 
+        board[0] == board[3] and 
+        board[0] == board[6]):
+        return board[0]
+    if (board[1] != 0 and
+        board[1] == board[4] and 
+        board[1] == board[7]):
+        return board[1]
+    if (board[2] != 0 and
+        board[2] == board[5] and 
+        board[2] == board[8]):
+        return board[2]
     return 0
 
 
@@ -131,6 +145,14 @@ def check_win_diagonal(board):
     '''
     # TODO: write docstring
     # TODO: implement function
+    if (board[0] != 0 and 
+        board[0] == board[4] and 
+        board[0] == board[8]):
+        return board[0]
+    if (board[2] != 0 and
+        board[2] == board[4] and 
+        board[2] == board[6]):
+        return board[2]
     return 0
 
 
@@ -180,7 +202,10 @@ def next_player(current_player):
         the id of the player to go next
     '''
     # TODO: Implement function
-    return 2 
+    if moves_left % 2 == 1:
+    	return 2 
+    if moves_left % 2 == 0:
+    	return 1
 
 # MAIN PROGRAM (INDENT LEVEL 0)
 
