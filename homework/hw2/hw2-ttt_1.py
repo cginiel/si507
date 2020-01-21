@@ -83,19 +83,16 @@ def make_move(player, board):
     response = input(f"{player_name(player)} move: ")
     if response.isnumeric(): # input takes this if the input registers as numeric characters
         position = int(response)
-        if position < 1:
+        if 0 < position < 10:
+            if board[position - 1] == 0:
+                board[position - 1] = player # the user's selection is indexed and sent to update board list
+            elif board[position - 1] != 0:
+                board = board
+                print(f"That's an invalid input, {player_name(player)}. Try again.")
+        elif position < 1:
             print("Enter a number between 1 and 9.")
         elif position > 9:
             print("Enter a number between 1 and 9.")
-        elif 0 < position < 10:
-            for i in range(len(board)):
-                if board[i] == 0:
-                    if (position - 1) == i:
-                        board[i] = player
-                elif board[i] != 0:
-                    board = board
-                    print("Invalid input!!!")
-
 
 
 def check_win_horizontal(board):
