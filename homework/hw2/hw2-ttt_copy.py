@@ -79,18 +79,19 @@ def make_move(player, board):
         the board is modified in place when a valid move is entered
     '''
     # TODO: Implement function
-    name = player_name(player)
-    response = input(f"{name}'s move. Enter a number between 1 and 9: ")
-    if response.isnumeric():
-        position = int(response)
-        if position < 1:
-            print("Enter a number between 1 and 9.")
-        elif position > 9:
-            print("Enter a number between 1 and 9.")
-        elif position > 0 and position < 10:
-            for i in range(len(board)):
-                if position == i:
-                    board[(i - 1)] = player
+    while True:
+        name = player_name(player)
+        response = input(f"{name}'s move. Enter a number between 1 and 9: ")
+        if response.isnumeric():
+            position = int(response)
+            if position < 1:
+                print("Enter a number between 1 and 9.")
+            elif position > 9:
+                print("Enter a number between 1 and 9.")
+            elif position > 0 and position < 10:
+                for i in range(len(board)):
+                    if position == i:
+                        board[(i - 1)] = player
     return None
 
 
