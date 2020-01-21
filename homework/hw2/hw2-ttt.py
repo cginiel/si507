@@ -108,6 +108,18 @@ def make_move(player, board):
             position = str(response)
             if position == "quit":
                 sys.exit(0)
+            elif position != "quit":
+                x = x
+                print("Enter a number between 1 and 9.")
+                display_board(board)
+        else:
+            x = x
+            print("Enter a number between 1 and 9.")
+            display_board(board)
+        # even though the assignment instructions don't include a printed board after 
+        # an "arrrrgh!" input (because it's read as neither alpha nor numeric),
+        # I included a display_board() function here so that no matter how far along a user
+        # is in the game they can see the board's status.
 
 
 def check_win_horizontal(board):
