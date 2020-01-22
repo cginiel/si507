@@ -1,5 +1,5 @@
-
 import sys
+
 # CONSTANTS
 PLAYER_NAMES = ["Nobody", "X", "O"] 
 
@@ -78,7 +78,6 @@ def make_move(player, board):
         the board upon which to move
         the board is modified in place when a valid move is entered
     '''
-    # TODO: Implement function
     x = 0 # this is the counter for our function. We break out of it with valid attempts. We stay in it with invalid attempts.
     while x < 9:
         print("=" * 45)
@@ -86,7 +85,9 @@ def make_move(player, board):
         if response.isnumeric(): # input takes this if the input registers as numeric characters
             position = int(response)
             if 0 < position < 10:
-                if board[position - 1] == 0: # this is saying IF THE INDEXED VALUE OF THE BOARD AT THE TIME OF TURN EQUALS ZERO (which it should for a valid turn) then let 'em occupy it!!!!!!!!
+                if board[position - 1] == 0: 
+                # the line above is saying IF THE INDEXED VALUE OF THE BOARD AT THE TIME OF TURN EQUALS ZERO 
+                # (which it should for a valid turn) then let 'em occupy it!!!!!!!!
                     board[position - 1] = player # the user's selection is indexed and sent to update board list
                     x += 1
                     break
@@ -119,14 +120,27 @@ def make_move(player, board):
         # even though the assignment instructions don't include a printed board after 
         # an "arrrrgh!" input (because it's read as neither alpha nor numeric),
         # I included a display_board() function here so that no matter how far along a user
-        # is in the game they can see the board's status.
+        # is in the game, and no matter their input, they can see the board's status.
 
 
 def check_win_horizontal(board):
+    '''checks if a player is fully occupying any rows
+
+    if a player occupies the three spaces of a given row
+    the board is indexed to find which player wins
+
+    Parameters
+    ----------
+    board: list
+        the board to determine equivalency of player's ID
+
+    Returns
+    ----------
+    int
+        the int is either the number of the corresponding 
+        winning player (i.e. 1 = X and 2 = O)
+        or 0, which means no one has won.
     '''
-    add docstring
-    '''
-    # TODO: write docstring
     if (board[0] != 0 and 
         board[0] == board[1] and 
         board[0] == board[2]):
@@ -143,11 +157,23 @@ def check_win_horizontal(board):
 
 
 def check_win_vertical(board):
+    '''checks if a player is fully occupying any columns
+
+    if a player occupies the three spaces of a given column
+    the board is indexed to find which player wins
+
+    Parameters
+    ----------
+    board: list
+        the board to determine equivalency of player's ID
+
+    Returns
+    ----------
+    int
+        the int is either the number of the corresponding 
+        winning player (i.e. 1 = X and 2 = O)
+        or 0, which means no one has won.
     '''
-    add docstring
-    '''
-    # TODO: write docstring
-    # TODO: implement function
     if (board[0] != 0 and 
         board[0] == board[3] and 
         board[0] == board[6]):
@@ -164,11 +190,24 @@ def check_win_vertical(board):
 
 
 def check_win_diagonal(board):
+    '''checks if a player is fully occupying either of the two diagonals
+
+    if a player occupies the three spaces of a diagonal 
+    (board numbers 1, 5, 9 -OR- 3, 5, 7)
+    the board is indexed to find which player wins
+
+    Parameters
+    ----------
+    board: list
+        the board to determine equivalency of player's ID
+
+    Returns
+    ----------
+    int
+        the int is either the number of the corresponding 
+        winning player (i.e. 1 = X and 2 = O)
+        or 0, which means no one has won.
     '''
-    add docstring
-    '''
-    # TODO: write docstring
-    # TODO: implement function
     if (board[0] != 0 and 
         board[0] == board[4] and 
         board[0] == board[8]):
@@ -235,7 +274,6 @@ def next_player(current_player):
     int
         the id of the player to go next
     '''
-    # TODO: Implement function
     if moves_left % 2 == 1:
     	return 2 
     if moves_left % 2 == 0:
