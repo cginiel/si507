@@ -50,8 +50,9 @@ class Pet:
     ascii_art_right = ""
 
     # TODO: Add attribute "sound"
-    def __init__(self, name): # self refers to the instance of self. this indicates which instance you are working with. also, this is a constructor
+    def __init__(self, name, sound): # self refers to the instance of self. this indicates which instance you are working with. also, this is a constructor
         self.name = name # assigns the name the user gives to the instance
+        self.sound = sound
         self.hunger = randrange(self.max_hunger)
         self.boredom = randrange(self.max_boredom)
 
@@ -137,21 +138,29 @@ class Pet:
 
     def clock_tick(self):
         #TODO: implement function and add docstring
-        pass
+        self.hunger += 2
+        self.boredom += 2
 
     def speak(self):
         #TODO: implement function and add docstring
-        pass
+        return "I say " + self.sound
 
     def feed(self):
         #TODO: implement function and add docstring
-        pass
+        self.hunger -= 5
 
     def play(self):
         #TODO: implement function and add docstring
         pass
 
+class Dog(Pet):
+    pass
 
+class Cat(Pet):
+    pass
+
+class Poodle(Dog):
+    pass
 
 #######################################################################
 #---------- Part 2: Inheritance - subclasses
@@ -203,7 +212,43 @@ def get_meow_count():
 p = None
 
 while p == None:
+    #### begin pet type selection ####
     resp_pet_type = input("What kind of pet would you like to adopt?\n")
+    if resp_pet_type.isalpha():
+        resp_pet_type = str(resp_pet_type)
+        if resp_pet_type.lower() == "dog":
+            p = resp_pet_type
+            #### begin pet name ####
+            resp_name = get_name()
+            while not resp_name.isalpha():
+                print("Please use letters A - Z")
+                resp_name = get_name()
+            if resp_name.isalpha():
+                resp_name = str(resp_name.title())
+                #### begin pet sound ####
+                resp_sound = get_sound()
+                while not resp_sound.isalpha():
+                    print("Please user letters A - Z")
+                    resp_sound = get_sound()
+                if resp_sound.isalpha():
+                    resp_sound = str(resp_sound.title())
+                #### begin instance call ####
+                pet = Pet(resp_name, resp_sound)
+                print(pet.status())
+                action = input("What should I do?\n")
+
+
+
+        elif resp_pet_type.lower() == "cat":
+            p = resp_pet_type
+            print(f"this is a {p}")
+        elif resp_pet_type.lower() == "poodle":
+            p = resp_pet_type
+            print(f"this is a {p}")
+        else:
+            print(f"We only have dogs, cats, and poodles here!")
+
+
 
     # TODO: Instantiate either a cat, dog or poodle depending on the input
     # given by the player (case insenstive) and assign it to the variable p.
@@ -211,12 +256,12 @@ while p == None:
     # "We only have Cats, Dogs and Poodles.". Continue the loop till
     # the player provides a vaild pet.
 
-while not p.has_left():
-    print()
-    print(p.status())
+# while not p.has_left():
+#     print()
+#     print(p.status())
 
-    command = input("What should I do?\n")
-    p.do_command(command)
-    p.clock_tick()
+#     command = input("What should I do?\n")
+#     p.do_command(command)
+#     p.clock_tick()
 
 print("Your pet has left.")
