@@ -1,4 +1,5 @@
 from random import randrange
+import random
 
 ## CONSTANTS ##
 
@@ -143,24 +144,40 @@ class Pet:
 
     def speak(self):
         #TODO: implement function and add docstring
-        return "I say " + self.sound
+        return "I say: " + self.sound
 
     def feed(self):
         #TODO: implement function and add docstring
         self.hunger -= 5
+        if self.hunger <= 0:
+            self.hunger = 0
 
     def play(self):
         #TODO: implement function and add docstring
-        pass
+        counter = 3
+        # while counter <= 3:
+        #     direction = random.randint(0, 1)
+        #     print(direction)
 
 class Dog(Pet):
-    pass
+    def speak(self):
+        return super().speak() + " arrrf!"
 
 class Cat(Pet):
-    pass
+    def __init__(self, name, sound, meow_count):
+        super().__init__(name, sound)
+        self.meow_count = meow_count
+
+    def speak(self):
+        return "I say: " + self.sound * meow_count
+
 
 class Poodle(Dog):
-    pass
+    super().__init__(name, sound)
+
+    def speak(self):
+        def dance(self):
+
 
 #######################################################################
 #---------- Part 2: Inheritance - subclasses
@@ -216,8 +233,10 @@ while p == None:
     resp_pet_type = input("What kind of pet would you like to adopt?\n")
     if resp_pet_type.isalpha():
         resp_pet_type = str(resp_pet_type)
+
+#### DOG ####
         if resp_pet_type.lower() == "dog":
-            p = resp_pet_type
+
             #### begin pet name ####
             resp_name = get_name()
             while not resp_name.isalpha():
@@ -225,6 +244,7 @@ while p == None:
                 resp_name = get_name()
             if resp_name.isalpha():
                 resp_name = str(resp_name.title())
+
                 #### begin pet sound ####
                 resp_sound = get_sound()
                 while not resp_sound.isalpha():
@@ -232,19 +252,56 @@ while p == None:
                     resp_sound = get_sound()
                 if resp_sound.isalpha():
                     resp_sound = str(resp_sound.title())
-                #### begin instance call ####
-                pet = Pet(resp_name, resp_sound)
-                print(pet.status())
-                action = input("What should I do?\n")
 
+                #### begin pet instance call ####
+                p = Dog(resp_name, resp_sound)
+                # print(pet.status())
+                # action = input("What should I do?\n")
 
-
+#### CAT ####
         elif resp_pet_type.lower() == "cat":
-            p = resp_pet_type
-            print(f"this is a {p}")
+            resp_name = get_name()
+            while not resp_name.isalpha():
+                print("Please use letters A - Z")
+                resp_name = get_name()
+            if resp_name.isalpha():
+                resp_name = str(resp_name.title())
+
+                #### begin pet sound ####
+                resp_sound = get_sound()
+                while not resp_sound.isalpha():
+                    print("Please user letters A - Z")
+                    resp_sound = get_sound()
+                if resp_sound.isalpha():
+                    resp_sound = str(resp_sound.title())
+
+                    #### get meow count ####
+                    meow_count = get_meow_count()
+                    # while not meow_count.isnumeric():
+                    #     print("Please use numbers only.")
+                    #     meow_count = get_meow_count()
+
+
+                #### begin pet instance call ####
+                p = Cat(resp_name, resp_sound, meow_count)
+
+#### POoDLE ####
         elif resp_pet_type.lower() == "poodle":
-            p = resp_pet_type
-            print(f"this is a {p}")
+            resp_name = get_name()
+            while not resp_name.isalpha():
+                print("Please use letters A - Z")
+                resp_name = get_name()
+            if resp_name.isalpha():
+                resp_name = str(resp_name.title())
+
+                #### begin pet sound ####
+                resp_sound = get_sound()
+                while not resp_sound.isalpha():
+                    print("Please user letters A - Z")
+                    resp_sound = get_sound()
+                if resp_sound.isalpha():
+                    resp_sound = str(resp_sound.title())
+
         else:
             print(f"We only have dogs, cats, and poodles here!")
 
@@ -256,12 +313,12 @@ while p == None:
     # "We only have Cats, Dogs and Poodles.". Continue the loop till
     # the player provides a vaild pet.
 
-# while not p.has_left():
-#     print()
-#     print(p.status())
+while not p.has_left():
+    print()
+    print(p.status())
 
-#     command = input("What should I do?\n")
-#     p.do_command(command)
-#     p.clock_tick()
+    command = input("What should I do?\n")
+    p.do_command(command)
+    p.clock_tick()
 
 print("Your pet has left.")
