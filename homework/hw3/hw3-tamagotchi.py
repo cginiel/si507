@@ -155,21 +155,46 @@ class Pet:
     def play(self):
         #TODO: implement function and add docstring
         counter = 3
-        direction = random.randint(0, 1)
         
-        print(direction)
-        if direction == 0:
-            print("right")
-        elif direction == 1:
-            print("left")
+        while counter > 0:
+            direction = random.randint(0, 1)
+            guess = input("Does the pet look left or right?\n")
+            answers = ["left", "right"]
+
+            if guess in answers:
+                #### right ####
+                if direction == 0:
+                    direction = "right"
+                    if guess == direction:
+                        print("Correct!")
+                        self.boredom -= 5
+                        if self.boredom <= 0:
+                            self.boredom = 0
+                        counter = 0
+                    elif guess != direction:
+                        print("I look to the right. Try again.")
+                        print(self.ascii_art_right)
+
+                #### left ####
+                elif direction == 1:
+                    direction = "left"
+                    if guess == direction:
+                        print("Correct!")
+                        self.boredom -= 5
+                        if self.boredom <= 0:
+                            self.boredom = 0
+                        counter = 0
+                    elif guess != direction:
+                        print("I look to the left. Try again.")
+                        print(self.ascii_art_left)
+
+                counter -= 1
+            else:
+                ("Invalid input. Try again.")
 
 
         print(f"boredom: {self.boredom}")
         print(f"hunger: {self.hunger}")
-
-
-
-
 
 
 #######################################################################
@@ -179,11 +204,18 @@ class Pet:
 # TODO: Implement the Dog, Cat and Poodle subclasses and add docstrings
 
 class Dog(Pet):
+    ascii_art_right = DOG_RIGHT
+    ascii_art_left = DOG_LEFT
+
     def speak(self):
         return super().speak() + ", arrrf!"
         
 
 class Cat(Pet):
+    ascii_art_right = CAT_RIGHT
+    ascii_art_left = CAT_LEFT
+
+
     def __init__(self, name, sound, meow_count):
         super().__init__(name, sound)
         self.meow_count = meow_count
@@ -296,7 +328,7 @@ while p == None:
                     print("Please user letters A - Z")
                     resp_sound = get_sound()
                 if resp_sound.isalpha():
-                    resp_sound = str(resp_sound.title())
+                    resp_sound = str(resp_sound)
 
                     #### get meow count ####
                     meow_count = get_meow_count()
