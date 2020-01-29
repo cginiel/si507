@@ -155,13 +155,23 @@ class Pet:
     def play(self):
         #TODO: implement function and add docstring
         counter = 3
-        # while counter <= 3:
-        #     direction = random.randint(0, 1)
-        #     print(direction)
+        direction = random.randint(0, 1)
+        
+        print(direction)
+        if direction == 0:
+            print("right")
+        elif direction == 1:
+            print("left")
+
+
+        print(f"boredom: {self.boredom}")
+        print(f"hunger: {self.hunger}")
+
+
 
 class Dog(Pet):
     def speak(self):
-        return super().speak() + " arrrf!"
+        return super().speak() + ", arrrf!"
 
 class Cat(Pet):
     def __init__(self, name, sound, meow_count):
@@ -173,10 +183,22 @@ class Cat(Pet):
 
 
 class Poodle(Dog):
-    super().__init__(name, sound)
+    def do_command(self, resp):
+        if resp == "dance":
+            print(self.dance())
+        elif resp == "speak":
+            print(f"{self.dance()} {self.speak()}")
+        elif resp == "play":
+            self.play()
+        elif resp == "feed":
+            self.feed()
+        elif resp == "wait":
+            print("Nothing to do...")
+        else:
+            print("Please provide a valid command.")
 
-    def speak(self):
-        def dance(self):
+    def dance(self):
+        return "Dancing in circles like poodles do!"
 
 
 #######################################################################
@@ -260,6 +282,8 @@ while p == None:
 
 #### CAT ####
         elif resp_pet_type.lower() == "cat":
+
+            #### begin pet name ####
             resp_name = get_name()
             while not resp_name.isalpha():
                 print("Please use letters A - Z")
@@ -287,6 +311,8 @@ while p == None:
 
 #### POoDLE ####
         elif resp_pet_type.lower() == "poodle":
+
+            #### begin pet name ####
             resp_name = get_name()
             while not resp_name.isalpha():
                 print("Please use letters A - Z")
@@ -301,6 +327,7 @@ while p == None:
                     resp_sound = get_sound()
                 if resp_sound.isalpha():
                     resp_sound = str(resp_sound.title())
+                p = Poodle(resp_name, resp_sound)
 
         else:
             print(f"We only have dogs, cats, and poodles here!")
