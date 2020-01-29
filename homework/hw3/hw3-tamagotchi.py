@@ -169,9 +169,19 @@ class Pet:
 
 
 
+
+
+
+#######################################################################
+#---------- Part 2: Inheritance - subclasses
+#######################################################################
+
+# TODO: Implement the Dog, Cat and Poodle subclasses and add docstrings
+
 class Dog(Pet):
     def speak(self):
         return super().speak() + ", arrrf!"
+        
 
 class Cat(Pet):
     def __init__(self, name, sound, meow_count):
@@ -183,30 +193,15 @@ class Cat(Pet):
 
 
 class Poodle(Dog):
+    def dance(self):
+        print("Dancing in circles like poodles do!")
+
     def do_command(self, resp):
         if resp == "dance":
-            print(self.dance())
+            return self.dance()
         elif resp == "speak":
-            print(f"{self.dance()} {self.speak()}")
-        elif resp == "play":
-            self.play()
-        elif resp == "feed":
-            self.feed()
-        elif resp == "wait":
-            print("Nothing to do...")
-        else:
-            print("Please provide a valid command.")
-
-    def dance(self):
-        return "Dancing in circles like poodles do!"
-
-
-#######################################################################
-#---------- Part 2: Inheritance - subclasses
-#######################################################################
-
-# TODO: Implement the Dog, Cat and Poodle subclasses and add docstrings
-
+            self.dance()
+        return super().do_command(resp)
 
 def get_name():
     '''Asks the player which name a pet should have.
@@ -220,6 +215,8 @@ def get_name():
     none
     '''
     return input("How do you want to name your pet?\n")
+
+
 def get_sound():
     '''Asks the player what sound a pet should make
 
@@ -232,6 +229,8 @@ def get_sound():
     none
     '''
     return input("What does your pet say?\n")
+
+
 def get_meow_count():
     '''Asks the player how often a cat should make a sound.
 
