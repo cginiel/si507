@@ -226,9 +226,7 @@ class Pet:
         '''
         attempts = self.counter
         while attempts > 0:
-            print(f"Counter: {attempts}") 
             direction = random.randint(0, 1)
-            print(f"Direction: {direction}")
             guess = input("Does the pet look left or right?\n")
             answers = ["left", "right"]
 
@@ -265,7 +263,6 @@ class Pet:
                 print("Only 'left' and 'right' are valid guesses. Try again.")
 
         attempts = self.counter
-
 
 
 #######################################################################
@@ -344,6 +341,11 @@ class Cat(Pet):
         A counter for play(), default value of 3 for class Pet
         HOWEVER, cats have a default value of 5!
 
+    Variables
+    ----------
+    ascii_art_right/left : string
+        the art printed for when you play with cat
+
     Cats have their own ascii art.
     '''
     ascii_art_right = CAT_RIGHT
@@ -416,6 +418,17 @@ class Poodle(Dog):
     def do_command(self, resp):
         '''Poodles dance.
 
+        if a user inputs dance, they dance.
+        if a user inputs speak, they dance then speak.
+
+        Parameters
+        ----------
+        resp : string
+            user input
+
+        Returns
+        -------
+        the superclass do_command
 
         '''
         if resp == "dance":
@@ -468,6 +481,7 @@ def get_meow_count():
         resp = input("How often does your Cat make a sound?\n")
         if resp.isnumeric():
             return int(resp)
+
 
 p = None
 
@@ -553,13 +567,6 @@ while p == None:
         else:
             print(f"We only have Cats, Dogs, and Poodles.")
 
-
-
-    # TODO: Instantiate either a cat, dog or poodle depending on the input
-    # given by the player (case insenstive) and assign it to the variable p.
-    # If the player does not provide valid input, print: 
-    # "We only have Cats, Dogs and Poodles.". Continue the loop till
-    # the player provides a vaild pet.
 
 while not p.has_left():
     print()
