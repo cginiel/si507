@@ -1,6 +1,15 @@
 from random import randrange
 import random
 
+#### STUDY GROUP ####
+"""
+I collaborated with Danny Rosa 
+and Pisacha Wichianchan on this assignment. 
+
+"""
+#####################
+
+
 ## CONSTANTS ##
 
 ##Art by Hayley Jane Wakenshaw - https://www.asciiart.eu/animals/dogs
@@ -41,6 +50,10 @@ class Pet:
     ----------
     name : string
         The pet's name
+    sound : string
+        The pet's sound
+    counter : int
+        A counter for play(), default value of 3 for class Pet
     '''
     max_boredom = 6
     max_hunger = 10 # not attached to an instance bc it's a class attribute
@@ -50,8 +63,21 @@ class Pet:
     ascii_art_left = ""
     ascii_art_right = ""
 
-    # TODO: Add attribute "sound"
-    def __init__(self, name, sound, counter=3): # self refers to the instance of self. this indicates which instance you are working with. also, this is a constructor
+    def __init__(self, name, sound, counter=3):
+        """
+        Constructor for pet class.
+
+        Allows instantiations of name, sound, and counter.
+
+        Parameters:
+        -----------
+        name : string
+            The pet's name
+        sound : string
+            The pet's sound
+        counter : int
+            A counter for play(), default value of 3 for class Pet
+        """
         self.name = name # assigns the name the user gives to the instance
         self.sound = sound
         self.counter = counter
@@ -60,7 +86,7 @@ class Pet:
 
     def mood(self):
         '''Get the mood of a pet. A pet can be happy, hungry or bored,
-        depending on wether it was fed or has played enough.
+        depending on whether it was fed or has played enough.
 
         Parameters
         ----------
@@ -139,29 +165,71 @@ class Pet:
         return self.hunger > self.leaves_hungry or self.boredom > self.leaves_bored
 
     def clock_tick(self):
-        #TODO: implement function and add docstring
+        '''Increases boredom and hunger with every valid user entry.
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        none
+
+        '''
         self.hunger += 2
         self.boredom += 2
 
     def speak(self):
-        #TODO: implement function and add docstring
+        '''Returns a string of the user-entered pet sound.
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        --------
+        string
+            pet's sound
+        '''
         return "I say: " + self.sound
 
     def feed(self):
-        #TODO: implement function and add docstring
+        '''Reduces pet's hunger by 5 when user issues "feed" resp.
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        none
+        '''
         self.hunger -= 5
         if self.hunger <= 0:
             self.hunger = 0
 
     def play(self):
-        #TODO: implement function and add docstring      
+        '''Allows user to play simple guessing game with pet. 
+
+        User guesses which direction the pet faces: "left" or "right"
+
+        If wrong, the pet shows which direction it was facing, prompts
+        user for another entry.
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        none
+        '''    
         while self.counter > 0:
             direction = random.randint(0, 1)
-            print(f"Direction: {direction}")
             guess = input("Does the pet look left or right?\n")
             answers = ["left", "right"]
 
-            if guess in answers:
+            if guess.lower() in answers:
                 #### right ####
                 if direction == 0:
                     direction = "right"
@@ -189,49 +257,171 @@ class Pet:
                         print(self.ascii_art_left)
 
                 self.counter -= 1
-                print(f"The counter is counting: {self.counter}")
 
             else:
                 print("Only 'left' and 'right' are valid guesses. Try again.")
 
         self.counter = 3
-        print(f"boredom: {self.boredom}")
-        print(f"hunger: {self.hunger}")
+
 
 
 #######################################################################
 #---------- Part 2: Inheritance - subclasses
 #######################################################################
 
-# TODO: Implement the Dog, Cat and Poodle subclasses and add docstrings
 
 class Dog(Pet):
+    """
+    A dog! (Also known as pupper, doggo)
+
+    Dogs are subclasses of the Pet class.
+
+    Attributes (inherited from Pet class):
+    ----------
+    name : string
+        The pet's name
+    sound : string
+        The pet's sound
+    counter : int
+        A counter for play(), default value of 3 for class Pet
+
+    Dogs have their own class attribute ascii art.
+    """
     ascii_art_right = DOG_RIGHT
     ascii_art_left = DOG_LEFT
 
     def speak(self):
+        '''Dogs speak a bit differently than other pets (cats).
+
+        Dogs inherit the speak method from superclass, with an added "arrrf!"
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        --------
+        string
+            dog's unique sound
+        '''
         return super().speak() + ", arrrf!"
+
+    def do_command(self, resp):
+        '''Dogs are impatient!
+
+        Dogs don't wait when a user asks. It registers as invalid.
+
+        Parameters
+        ----------
+        resp : string
+            the command to be issued to the pet
+
+        Returns
+        -------
+        none
+        '''
+        if resp == "wait":
+            print("Please provide a valid command.")
+        else:
+            super().do_command(resp)
         
 
 class Cat(Pet):
+    '''A cat!
+
+    Cats are subclasses of the pet class.
+
+    Attributes
+    ----------
+    name : string
+        The pet's name
+    sound : string
+        The pet's sound
+    counter : int
+        A counter for play(), default value of 3 for class Pet
+        HOWEVER, cats have a default value of 5!
+
+    Cats have their own ascii art.
+    '''
     ascii_art_right = CAT_RIGHT
     ascii_art_left = CAT_LEFT
 
 
     def __init__(self, name, sound, meow_count):
+        '''Cat constructor.
+
+        Cats inherit their superclass constructor 
+        and have an additional constructor, meow_count.
+
+        Attributes
+        ----------
+        meow_count : int
+            how many times the cat repeats its sound
+        '''
         super().__init__(name, sound)
         self.meow_count = meow_count
 
     def speak(self):
+        '''Cats speak slightly differently than other animals.
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        string
+            the cat's sound however many times the user inputs
+        '''
         return "I say: " + self.sound * meow_count
 
     def play(self, counter=5):
+        '''Cats have a longer attention span than dogs.
+
+        Their count for play() is 5 instead of 3.
+
+        Parameters
+        ----------
+        counter : int
+             default count of 5 for cats
+
+        Returns
+        -------
+        takes the superclass play() return, which is none
+        '''
         self.counter = counter
         return super().play()
 
 
 class Poodle(Dog):
+    '''A poodle!
+
+    Poodles are a subclass of Dog. 
+
+    Most things are the same as dog except poodles dance.
+
+    Attributes
+    ----------
+    name : string
+        The pet's name
+    sound : string
+        The pet's sound
+    counter : int
+        A counter for play(), default value of 3 for class Pet
+    '''
     def dance(self):
+        '''Poodle dance method.
+
+        Occurs when user's resp = "dance"
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        none
+        '''
         print("Dancing in circles like poodles do!")
 
     def do_command(self, resp):
@@ -240,7 +430,7 @@ class Poodle(Dog):
         elif resp == "speak":
             self.dance()
         return super().do_command(resp)
-        
+
 
 def get_name():
     '''Asks the player which name a pet should have.
