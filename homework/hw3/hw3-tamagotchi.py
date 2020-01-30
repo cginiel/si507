@@ -223,9 +223,12 @@ class Pet:
         Returns
         -------
         none
-        '''    
-        while self.counter > 0:
+        '''
+        attempts = self.counter
+        while attempts > 0:
+            print(f"Counter: {attempts}") 
             direction = random.randint(0, 1)
+            print(f"Direction: {direction}")
             guess = input("Does the pet look left or right?\n")
             answers = ["left", "right"]
 
@@ -238,7 +241,7 @@ class Pet:
                         self.boredom -= 5
                         if self.boredom <= 0:
                             self.boredom = 0
-                        self.counter = 0
+                        attempts = 0
                     elif guess != direction:
                         print("I look to the right. Try again.")
                         print(self.ascii_art_right)
@@ -251,17 +254,17 @@ class Pet:
                         self.boredom -= 5
                         if self.boredom <= 0:
                             self.boredom = 0
-                        self.counter = 0
+                        attempts = 0
                     elif guess != direction:
                         print("I look to the left. Try again.")
                         print(self.ascii_art_left)
 
-                self.counter -= 1
+                attempts -= 1
 
             else:
                 print("Only 'left' and 'right' are valid guesses. Try again.")
 
-        self.counter = 3
+        attempts = self.counter
 
 
 
@@ -347,7 +350,7 @@ class Cat(Pet):
     ascii_art_left = CAT_LEFT
 
 
-    def __init__(self, name, sound, meow_count):
+    def __init__(self, name, sound, meow_count, counter=5):
         '''Cat constructor.
 
         Cats inherit their superclass constructor 
@@ -357,8 +360,11 @@ class Cat(Pet):
         ----------
         meow_count : int
             how many times the cat repeats its sound
+
+        counter : int
+            cats have a default counter of 5
         '''
-        super().__init__(name, sound)
+        super().__init__(name, sound, counter)
         self.meow_count = meow_count
 
     def speak(self):
@@ -374,23 +380,6 @@ class Cat(Pet):
             the cat's sound however many times the user inputs
         '''
         return "I say: " + self.sound * meow_count
-
-    def play(self, counter=5):
-        '''Cats have a longer attention span than dogs.
-
-        Their count for play() is 5 instead of 3.
-
-        Parameters
-        ----------
-        counter : int
-             default count of 5 for cats
-
-        Returns
-        -------
-        takes the superclass play() return, which is none
-        '''
-        self.counter = counter
-        return super().play()
 
 
 class Poodle(Dog):
@@ -425,6 +414,10 @@ class Poodle(Dog):
         print("Dancing in circles like poodles do!")
 
     def do_command(self, resp):
+        '''Poodles dance.
+
+
+        '''
         if resp == "dance":
             return self.dance()
         elif resp == "speak":
