@@ -51,9 +51,10 @@ class Pet:
     ascii_art_right = ""
 
     # TODO: Add attribute "sound"
-    def __init__(self, name, sound): # self refers to the instance of self. this indicates which instance you are working with. also, this is a constructor
+    def __init__(self, name, sound, counter=3): # self refers to the instance of self. this indicates which instance you are working with. also, this is a constructor
         self.name = name # assigns the name the user gives to the instance
         self.sound = sound
+        self.counter = counter
         self.hunger = randrange(self.max_hunger)
         self.boredom = randrange(self.max_boredom)
 
@@ -153,11 +154,10 @@ class Pet:
             self.hunger = 0
 
     def play(self):
-        #TODO: implement function and add docstring
-        counter = 3
-        
-        while counter > 0:
+        #TODO: implement function and add docstring      
+        while self.counter > 0:
             direction = random.randint(0, 1)
+            print(f"Direction: {direction}")
             guess = input("Does the pet look left or right?\n")
             answers = ["left", "right"]
 
@@ -170,7 +170,7 @@ class Pet:
                         self.boredom -= 5
                         if self.boredom <= 0:
                             self.boredom = 0
-                        counter = 0
+                        self.counter = 0
                     elif guess != direction:
                         print("I look to the right. Try again.")
                         print(self.ascii_art_right)
@@ -183,16 +183,18 @@ class Pet:
                         self.boredom -= 5
                         if self.boredom <= 0:
                             self.boredom = 0
-                        counter = 0
+                        self.counter = 0
                     elif guess != direction:
                         print("I look to the left. Try again.")
                         print(self.ascii_art_left)
 
-                counter -= 1
+                self.counter -= 1
+                print(f"The counter is counting: {self.counter}")
+
             else:
-                ("Invalid input. Try again.")
+                print("Only 'left' and 'right' are valid guesses. Try again.")
 
-
+        self.counter = 3
         print(f"boredom: {self.boredom}")
         print(f"hunger: {self.hunger}")
 
@@ -223,6 +225,10 @@ class Cat(Pet):
     def speak(self):
         return "I say: " + self.sound * meow_count
 
+    def play(self, counter=5):
+        self.counter = counter
+        return super().play()
+
 
 class Poodle(Dog):
     def dance(self):
@@ -234,6 +240,7 @@ class Poodle(Dog):
         elif resp == "speak":
             self.dance()
         return super().do_command(resp)
+        
 
 def get_name():
     '''Asks the player which name a pet should have.
@@ -361,7 +368,7 @@ while p == None:
                 p = Poodle(resp_name, resp_sound)
 
         else:
-            print(f"We only have dogs, cats, and poodles here!")
+            print(f"We only have Cats, Dogs, and Poodles.")
 
 
 
