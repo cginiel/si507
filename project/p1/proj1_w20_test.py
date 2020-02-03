@@ -99,53 +99,53 @@ class TestMovie(unittest.TestCase):
 ###### Part 2 ######
 ####################
 
-class TestJson(unittest.TestCase):
+# class TestJson(unittest.TestCase):
 	
-	def testMedia(self):
-		f = open("sample_json.json","r")
-		sample_data = json.loads(f.read())
-		f.close()
+# 	def testMedia(self):
+# 		f = open("sample_json.json","r")
+# 		sample_data = json.loads(f.read())
+# 		f.close()
 		
-		m = proj1.Media(json=sample_data[2])
+# 		m = proj1.Media(json=sample_data[2])
 
-		self.assertEqual(m.title, "Bridget Jones's Diary (Unabridged)")
-		self.assertEqual(m.author, "Helen Fielding")
-		self.assertEqual(m.release_year, "2012")
-		self.assertEqual(m.url, "https://itunes.apple.com/us/audiobook/bridget-joness-diary-unabridged/id516799841?uo=4")
-		self.assertEqual(m.info(), "Bridget Jones's Diary (Unabridged) by Helen Fielding (2012)")
-		self.assertEqual(m.length(), 0)
+# 		self.assertEqual(m.title, "Bridget Jones's Diary (Unabridged)")
+# 		self.assertEqual(m.author, "Helen Fielding")
+# 		self.assertEqual(m.release_year, "2012")
+# 		self.assertEqual(m.url, "https://itunes.apple.com/us/audiobook/bridget-joness-diary-unabridged/id516799841?uo=4")
+# 		self.assertEqual(m.info(), "Bridget Jones's Diary (Unabridged) by Helen Fielding (2012)")
+# 		self.assertEqual(m.length(), 0)
 
-	def testSong(self):
-		f = open("sample_json.json","r")
-		sample_data = json.loads(f.read())
-		f.close()
+# 	def testSong(self):
+# 		f = open("sample_json.json","r")
+# 		sample_data = json.loads(f.read())
+# 		f.close()
 		
-		s = proj1.Song(json=sample_data[1])
+# 		s = proj1.Song(json=sample_data[1])
 		
-		self.assertEqual(s.title, "Hey Jude")
-		self.assertEqual(s.author, "The Beatles")
-		self.assertEqual(s.release_year, "1968")
-		self.assertEqual(s.url, "https://itunes.apple.com/us/album/hey-jude/400835735?i=400835962&uo=4")
-		self.assertEqual(s.album, "TheBeatles 1967-1970 (The Blue Album)")
-		self.assertEqual(s.genre, "Rock")
-		self.assertEqual(s.track_length, 431333)
-		self.assertEqual(s.info(), "Hey Jude by The Beatles (1968) [Rock]")
-		self.assertEqual(s.length(), 431)
+# 		self.assertEqual(s.title, "Hey Jude")
+# 		self.assertEqual(s.author, "The Beatles")
+# 		self.assertEqual(s.release_year, "1968")
+# 		self.assertEqual(s.url, "https://itunes.apple.com/us/album/hey-jude/400835735?i=400835962&uo=4")
+# 		self.assertEqual(s.album, "TheBeatles 1967-1970 (The Blue Album)")
+# 		self.assertEqual(s.genre, "Rock")
+# 		self.assertEqual(s.track_length, 431333)
+# 		self.assertEqual(s.info(), "Hey Jude by The Beatles (1968) [Rock]")
+# 		self.assertEqual(s.length(), 431)
 
-	def testMovie(self):
-		f = open("sample_json.json","r")
-		sample_data = json.loads(f.read())
-		f.close()
+# 	def testMovie(self):
+# 		f = open("sample_json.json","r")
+# 		sample_data = json.loads(f.read())
+# 		f.close()
 		
-		m = proj1.Movie(json=sample_data[0])
+# 		m = proj1.Movie(json=sample_data[0])
 		
-		self.assertEqual(m.title, "Jaws")
-		self.assertEqual(m.author, "Steven Spielberg")
-		self.assertEqual(m.release_year, "1975")
-		self.assertEqual(m.url, "https://itunes.apple.com/us/movie/jaws/id526768967?uo=4")
-		self.assertEqual(m.rating, "PG")
-		self.assertEqual(m.movie_length, 7451455)
-		self.assertEqual(m.info(), "Jaws by Steven Spielberg (1975) [PG]")
-		self.assertEqual(m.length(), 124)
+# 		self.assertEqual(m.title, "Jaws")
+# 		self.assertEqual(m.author, "Steven Spielberg")
+# 		self.assertEqual(m.release_year, "1975")
+# 		self.assertEqual(m.url, "https://itunes.apple.com/us/movie/jaws/id526768967?uo=4")
+# 		self.assertEqual(m.rating, "PG")
+# 		self.assertEqual(m.movie_length, 7451455)
+# 		self.assertEqual(m.info(), "Jaws by Steven Spielberg (1975) [PG]")
+# 		self.assertEqual(m.length(), 124)
 
 unittest.main()
