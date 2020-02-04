@@ -4,7 +4,7 @@
 #########################################
 import requests
 
-
+######## construct classes #############
 class Media:
     '''ADD DOCSTRING
     '''
@@ -88,6 +88,21 @@ class Movie(Media): # specific to this class: rating, movielength
         '''
         rounded_length = round((self.movie_length/1000)/60)
         return rounded_length
+
+######## fetching media data from iTunes API ##########
+BASE_URL = "https://itunes.apple.com/search" # only interested in media
+
+def get_media(url, params=None):
+    '''
+    '''
+    if params:
+        response = requests.get(url, params=params).json()
+    else:
+        response = requests.get(url, params=params).json()
+
+    return response
+
+print(get_media(BASE_URL))
 
 
 
