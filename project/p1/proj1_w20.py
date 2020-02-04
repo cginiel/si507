@@ -89,10 +89,12 @@ class Movie(Media): # specific to this class: rating, movielength
         rounded_length = round((self.movie_length/1000)/60)
         return rounded_length
 
+
+
 ######## fetching media data from iTunes API ##########
 BASE_URL = "https://itunes.apple.com/search" # only interested in media
 
-def get_media(url, params=None):
+def get_media(url=BASE_URL, params=None):
     '''
     '''
     if params:
@@ -102,7 +104,24 @@ def get_media(url, params=None):
 
     return response
 
-print(get_media(BASE_URL))
+##### im trying to write a function for user entry that can be applied ####
+##### to search the API using the get_media() function ####################
+def user_entry(input):
+    media_type = ""
+    media_type = input("Enter a search term, or \"exit\" to quit: ")
+
+user_entry = None
+
+while user_entry == None:
+    media_type = input("Enter a search term, or \"exit\" to quit: ")
+    if media_type.isalpha():
+        media_type = str(media_type)
+    
+    #### MEDIA ####
+
+
+
+
 
 
 
