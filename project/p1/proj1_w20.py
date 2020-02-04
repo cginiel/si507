@@ -41,10 +41,16 @@ class Song(Media): # specific to this class: album, genre, tracklength
         # do these inits need defaults if they're inherited from superclass?
         '''ADD DOCSTRING
         '''
-        super().__init__(title, author, release_year, url)
-        self.album = album
-        self.genre = genre
-        self.track_length = track_length
+        super().__init__(title, author, release_year, url, json)
+        if (json is None):
+            self.album = album
+            self.genre = genre
+            self.track_length = track_length
+        else:
+            self.title = json["trackName"]
+            self.album = json["collectionName"]
+            self.genre = json["primaryGenreName"]
+            self.track_length = json["trackTimeMillis"]
 
     def info(self):
         '''ADD DOCSTRING
@@ -63,9 +69,14 @@ class Movie(Media): # specific to this class: rating, movielength
     def __init__(self, title="No Title", author="No Author", release_year="No Release Year", url="No URL", rating="No Rating", movie_length=0, json=None):
         '''ADD DOCSTRING
         '''
-        super().__init__(title, author, release_year, url) # do I need URL here?
-        self.rating = rating
-        self.movie_length = movie_length
+        super().__init__(title, author, release_year, url, json)
+        if (json is None):
+            self.rating = rating
+            self.movie_length = movie_length
+        else:
+            self.title = json["trackName"]
+            self.rating = json["contentAdvisoryRating"]
+            self.movie_length = json["trackTimeMillis"]
 
     def info(self):
         '''ADD DOCSTRING

@@ -6,94 +6,94 @@ import proj1_w20 as proj1
 ###### Part 1 ######
 ####################
 
-# class TestMedia(unittest.TestCase):
+class TestMedia(unittest.TestCase):
 
-# 	def testExample(self):
-# 		m1 = proj1.Media("1999", "Prince")
-# 		self.assertEqual(m1.title, "1999")
-# 		self.assertEqual(m1.author, "Prince")
+	def testExample(self):
+		m1 = proj1.Media("1999", "Prince")
+		self.assertEqual(m1.title, "1999")
+		self.assertEqual(m1.author, "Prince")
 
-# 	def testConstructor(self):
-# 		m1 = proj1.Media()
-# 		m2 = proj1.Media("1999", "Prince", 1982, "https://www.example-url-1999.com")
-# 		self.assertEqual(m1.title, "No Title")
-# 		self.assertEqual(m1.author, "No Author")
-# 		self.assertEqual(m1.release_year, "No Release Year")
-# 		self.assertEqual(m2.title, "1999")
-# 		self.assertEqual(m2.author, "Prince")
-# 		self.assertEqual(m2.release_year, 1982)
-# 		self.assertEqual(m2.url, "https://www.example-url-1999.com")
-# 		self.assertRaises(AttributeError, lambda: m2.album)
-# 		self.assertRaises(AttributeError, lambda: m2.genre)
-# 		self.assertRaises(AttributeError, lambda: m2.track_length)
-# 		self.assertRaises(AttributeError, lambda: m2.rating)
-# 		self.assertRaises(AttributeError, lambda: m2.movie_length)
+	def testConstructor(self):
+		m1 = proj1.Media()
+		m2 = proj1.Media("1999", "Prince", 1982, "https://www.example-url-1999.com")
+		self.assertEqual(m1.title, "No Title")
+		self.assertEqual(m1.author, "No Author")
+		self.assertEqual(m1.release_year, "No Release Year")
+		self.assertEqual(m2.title, "1999")
+		self.assertEqual(m2.author, "Prince")
+		self.assertEqual(m2.release_year, 1982)
+		self.assertEqual(m2.url, "https://www.example-url-1999.com")
+		self.assertRaises(AttributeError, lambda: m2.album)
+		self.assertRaises(AttributeError, lambda: m2.genre)
+		self.assertRaises(AttributeError, lambda: m2.track_length)
+		self.assertRaises(AttributeError, lambda: m2.rating)
+		self.assertRaises(AttributeError, lambda: m2.movie_length)
 
-# 	def testInfo(self):
-# 		m2 = proj1.Media("1999", "Prince", 1982)
-# 		self.assertEqual(m2.info(), "1999 by Prince (1982)")
+	def testInfo(self):
+		m2 = proj1.Media("1999", "Prince", 1982)
+		self.assertEqual(m2.info(), "1999 by Prince (1982)")
 
-# 	def testLength(self):
-# 		m2 = proj1.Media("1999", "Prince", 1982)
-# 		self.assertEqual(m2.length(), 0)
-
-
-# class TestSong(unittest.TestCase):
-
-# 	def testConstructor(self):
-# 		s1 = proj1.Song()
-# 		s2 = proj1.Song("Havana", "Camila Cabello", 2018, "https://www.example-url-havana.com", "Camila", "Pop", 216000)
-
-# 		self.assertEqual(s1.album, "No Album")
-# 		self.assertEqual(s1.track_length, 0)
-# 		self.assertEqual(s2.title, "Havana")
-# 		self.assertEqual(s2.author, "Camila Cabello")
-# 		self.assertEqual(s2.release_year, 2018)
-# 		self.assertEqual(s2.url, "https://www.example-url-havana.com")
-# 		self.assertEqual(s2.album, "Camila")
-# 		self.assertEqual(s2.genre, "Pop")
-# 		self.assertEqual(s2.track_length, 216000)
-# 		self.assertRaises(AttributeError, lambda: s2.rating)
-# 		self.assertRaises(AttributeError, lambda: s2.movie_length)
-
-# 	def testInfo(self):
-# 		s2 = proj1.Song("Havana", "Camila Cabello", 2018, "https://www.example-url-havana.com", "Camila", "Pop", 216000)
-
-# 		self.assertEqual(s2.info(), "Havana by Camila Cabello (2018) [Pop]")
-
-# 	def testLength(self):	
-# 		s2 = proj1.Song("Havana", "Camila Cabello", 2018, "https://www.example-url-havana.com", "Camila", "Pop", 216000)
-
-# 		self.assertEqual(s2.length(), 216)
+	def testLength(self):
+		m2 = proj1.Media("1999", "Prince", 1982)
+		self.assertEqual(m2.length(), 0)
 
 
-# class TestMovie(unittest.TestCase):
+class TestSong(unittest.TestCase):
 
-# 	def testConstructor(self):
-# 		m1 = proj1.Movie()
-# 		m2 = proj1.Movie("The Chorus", "Christophe Barratier", 2005, "https://www.example-url-chorus.com", "PG-13", 5700000)
+	def testConstructor(self):
+		s1 = proj1.Song()
+		s2 = proj1.Song("Havana", "Camila Cabello", 2018, "https://www.example-url-havana.com", "Camila", "Pop", 216000)
 
-# 		self.assertEqual(m1.rating, "No Rating")
-# 		self.assertEqual(m1.movie_length, 0)
-# 		self.assertEqual(m2.title, "The Chorus")
-# 		self.assertEqual(m2.author, "Christophe Barratier")
-# 		self.assertEqual(m2.release_year, 2005)
-# 		self.assertEqual(m2.url, "https://www.example-url-chorus.com")
-# 		self.assertEqual(m2.rating,"PG-13")
-# 		self.assertEqual(m2.movie_length, 5700000)
-# 		self.assertRaises(AttributeError, lambda: m2.album)
-# 		self.assertRaises(AttributeError, lambda: m2.genre)
-# 		self.assertRaises(AttributeError, lambda: m2.track_length)
+		self.assertEqual(s1.album, "No Album")
+		self.assertEqual(s1.track_length, 0)
+		self.assertEqual(s2.title, "Havana")
+		self.assertEqual(s2.author, "Camila Cabello")
+		self.assertEqual(s2.release_year, 2018)
+		self.assertEqual(s2.url, "https://www.example-url-havana.com")
+		self.assertEqual(s2.album, "Camila")
+		self.assertEqual(s2.genre, "Pop")
+		self.assertEqual(s2.track_length, 216000)
+		self.assertRaises(AttributeError, lambda: s2.rating)
+		self.assertRaises(AttributeError, lambda: s2.movie_length)
 
-# 	def testInfo(self):
-# 		m2 = proj1.Movie("The Chorus", "Christophe Barratier", 2005, "https://www.example-url-chorus.com", "PG-13", 5700000)
+	def testInfo(self):
+		s2 = proj1.Song("Havana", "Camila Cabello", 2018, "https://www.example-url-havana.com", "Camila", "Pop", 216000)
 
-# 		self.assertEqual(m2.info(), "The Chorus by Christophe Barratier (2005) [PG-13]")
+		self.assertEqual(s2.info(), "Havana by Camila Cabello (2018) [Pop]")
 
-# 	def testLength(self):
-# 		m2 = proj1.Movie("The Chorus", "Christophe Barratier", 2005, "https://www.example-url-chorus.com", "PG-13", 5700000)
+	def testLength(self):	
+		s2 = proj1.Song("Havana", "Camila Cabello", 2018, "https://www.example-url-havana.com", "Camila", "Pop", 216000)
 
-# 		self.assertEqual(m2.length(), 95)
+		self.assertEqual(s2.length(), 216)
+
+
+class TestMovie(unittest.TestCase):
+
+	def testConstructor(self):
+		m1 = proj1.Movie()
+		m2 = proj1.Movie("The Chorus", "Christophe Barratier", 2005, "https://www.example-url-chorus.com", "PG-13", 5700000)
+
+		self.assertEqual(m1.rating, "No Rating")
+		self.assertEqual(m1.movie_length, 0)
+		self.assertEqual(m2.title, "The Chorus")
+		self.assertEqual(m2.author, "Christophe Barratier")
+		self.assertEqual(m2.release_year, 2005)
+		self.assertEqual(m2.url, "https://www.example-url-chorus.com")
+		self.assertEqual(m2.rating,"PG-13")
+		self.assertEqual(m2.movie_length, 5700000)
+		self.assertRaises(AttributeError, lambda: m2.album)
+		self.assertRaises(AttributeError, lambda: m2.genre)
+		self.assertRaises(AttributeError, lambda: m2.track_length)
+
+	def testInfo(self):
+		m2 = proj1.Movie("The Chorus", "Christophe Barratier", 2005, "https://www.example-url-chorus.com", "PG-13", 5700000)
+
+		self.assertEqual(m2.info(), "The Chorus by Christophe Barratier (2005) [PG-13]")
+
+	def testLength(self):
+		m2 = proj1.Movie("The Chorus", "Christophe Barratier", 2005, "https://www.example-url-chorus.com", "PG-13", 5700000)
+
+		self.assertEqual(m2.length(), 95)
 
 ####################
 ###### Part 2 ######
