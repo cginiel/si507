@@ -92,7 +92,7 @@ class Movie(Media): # specific to this class: rating, movielength
 
 
 ######## fetching media data from iTunes API ##########
-BASE_URL = "https://itunes.apple.com/search" # only interested in media
+BASE_URL = "https://itunes.apple.com/search?" # only interested in media
 
 def get_media(url=BASE_URL, params=None):
     '''
@@ -104,18 +104,31 @@ def get_media(url=BASE_URL, params=None):
 
     return response
 
+def user_entry():
+    '''
+    '''
+    user_entry = input("Enter a search term, or 'exit' to quit: ")
+
+    search_item = f"term={user_entry}"
+
+    return search_item
+
+
+
+print(get_media(params=f"{user_entry()}"))
+
 ##### im trying to write a function for user entry that can be applied ####
 ##### to search the API using the get_media() function ####################
-def user_entry(input):
-    media_type = ""
-    media_type = input("Enter a search term, or \"exit\" to quit: ")
+# def user_entry(input):
+#     media_type = ""
+#     media_type = input("Enter a search term, or \"exit\" to quit: ")
 
-user_entry = None
+# user_entry = None
 
-while user_entry == None:
-    media_type = input("Enter a search term, or \"exit\" to quit: ")
-    if media_type.isalpha():
-        media_type = str(media_type)
+# while user_entry == None:
+#     media_type = input("Enter a search term, or \"exit\" to quit: ")
+#     if media_type.isalpha():
+#         params = media_type
     
     #### MEDIA ####
 
