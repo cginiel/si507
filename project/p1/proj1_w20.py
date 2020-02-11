@@ -3,6 +3,7 @@
 ##### Uniqname: cginiel             #####
 #########################################
 import requests
+import json
 
 ######## construct classes #############
 class Media:
@@ -90,9 +91,21 @@ class Movie(Media): # specific to this class: rating, movielength
         return rounded_length
 
 
-
 ######## fetching media data from iTunes API ##########
-BASE_URL = "https://itunes.apple.com/search?" # only interested in media
+BASE_URL = "https://itunes.apple.com/search" # only interested in media
+
+################# alt way to fetch ########################################
+# user_search = input("Enter a search term, or 'exit' to quit: ")
+# params = {
+#     "term" : user_search
+# }
+
+# response = requests.get(BASE_URL, params)
+# result = response.json()
+
+# media = result['results'][0]['kind']
+# print(f"MEDIA: {media}")
+###########################################################################
 
 def get_media(url=BASE_URL, params=None):
     '''
@@ -104,7 +117,7 @@ def get_media(url=BASE_URL, params=None):
 
     return response
 
-def user_entry():
+def user_entry_params():
     '''
     '''
     user_entry = input("Enter a search term, or 'exit' to quit: ")
@@ -113,31 +126,61 @@ def user_entry():
 
     return search_item
 
+################################################################################################
+################################ kangning's function ###########################################
+################################ needs editing       ###########################################
+def media_list_parser(media_dict_list):
+    songs = []
+    movies = []
+    media = []
 
+    json_to_parse = get_media(params=user_entry_params())
+    # print(f"TYPE: {type(json_to_parse)}")
+    media_dict_list = json_to_parse['results'] # list of dictionaries
+    for media_dict in media_dict_list:
+        if "kind" in media_dict:
+            if media_dict['kind'] == 'song':
+                print(f"SONG: {media_dict}\n")
+                songs.append(Song(json=media_dict))
+            elif media_dict['kind'] == 'feature-movie':
+                print(f"MOVIE: {media_dict}\n")
+                movies.append(Movie(json=media_dict))
 
-print(get_media(params=f"{user_entry()}"))
-
-##### im trying to write a function for user entry that can be applied ####
-##### to search the API using the get_media() function ####################
-# def user_entry(input):
-#     media_type = ""
-#     media_type = input("Enter a search term, or \"exit\" to quit: ")
-
-# user_entry = None
-
-# while user_entry == None:
-#     media_type = input("Enter a search term, or \"exit\" to quit: ")
-#     if media_type.isalpha():
-#         params = media_type
-    
-    #### MEDIA ####
-
-
-
-
-
-
+    print("SONGS")
+    for song in songs:
+        print(song.info())
+    print("MOVIES")
+    for movie in movies:
+        print(movie.info()) # getting KeyError on movie (looks like it's not overriding the Media class with its own self.title)
+################################################################################################
 
 if __name__ == "__main__":
     # your control code for Part 4 (interactive search) should go here
-    pass
+    songs = []
+    movies = []
+    media = []
+
+    json_to_parse = get_media(params=user_entry_params())
+    # print(f"TYPE: {type(json_to_parse)}")
+    media_dict_list = json_to_parse['results'] # list of dictionaries
+    for media_dict in media_dict_list:
+        if "kind" in media_dict:
+            if media_dict['kind'] == 'song':
+                print(f"SONG: {media_dict}\n")
+                songs.append(Song(json=media_dict))
+            elif media_dict['kind'] == 'feature-movie':
+                print(f"MOVIE: {media_dict}\n")
+                movies.append(Movie(json=media_dict))
+
+    print("SONGS")
+    for song in songs:
+        print(song.info())
+    print("MOVIES")
+    for movie in movies:
+        print(movie.info()) # getting KeyError on movie (looks like it's not overriding the Media class with its own self.title)
+
+
+
+
+
+
