@@ -231,7 +231,6 @@ if __name__ == "__main__":
     media_dict_list = json_to_parse['results']
     i = 0
     while i == 0:
-        # list of dictionaries
         media_list_parser(media_dict_list)
         break
 
@@ -251,7 +250,7 @@ if __name__ == "__main__":
             for i in range(len(all_media_list)):
                 if i == (more_info - 1):
                     search_query = Media(json=all_media_list[i])
-                    print(f"Launching {search_query.url} in web browser...")
+                    print(f"\nLaunching\n{search_query.url}\nin web browser...\n")
                     webbrowser.open(search_query.url)
 
         else:
