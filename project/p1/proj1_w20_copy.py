@@ -3,6 +3,7 @@
 ##### Uniqname: cginiel             #####
 #########################################
 import requests
+import webbrowser
 import json
 import sys
 
@@ -137,54 +138,51 @@ def user_entry_params_intro():
 
     return search_item
 
-def user_entry_params():
-    '''
-    '''
-    search_item = ""
-    additional_info = input(f"Enter a number for more info, or a search term, or exit: ")
+# def user_entry_params():
+#     '''
+#     '''
+#     search_item = ""
+#     additional_info = input(f"Enter a number for more info, or a search term, or exit: ")
 
-    if additional_info == "exit":
-        print(f"Bye!")
-        sys.exit(0)
+#     if additional_info == "exit":
+#         print(f"Bye!")
+#         sys.exit(0)
     
-    elif additional_info.isalpha():
-        additional_info = additional_info
-        print(f"ADDITIONAL INFO: {additional_info}")
-        search_item = f"term={additional_info}"
-        return search_item
+#     elif additional_info.isalpha():
+#         additional_info = additional_info
+#         print(f"ADDITIONAL INFO: {additional_info}")
+#         search_item = f"term={additional_info}"
+#         return search_item
 
-    else:
-        if additional_info.isnumeric():
-            additional_info = int(additional_info)
-            return additional_info
+#     else:
+#         if additional_info.isnumeric():
+#             additional_info = int(additional_info)
+#             return additional_info
 
     
-            
+       
+songs = []
+movies = []
+media = []
+all_media_list = [] 
 
 def media_list_parser(media_dict_list):
     '''
     '''
-    songs = []
-    movies = []
-    media = []
-    all_media_list = []
     counter = 1
-    
     # below we loop through all of the dictionaries gathered and add them
     # to their respective media class
     for media_dict in media_dict_list:
+        print(f"MEDIA_DICT: {media_dict}")
         if "kind" in media_dict:
             if media_dict['kind'] == 'song':
-                songs.append(Song(json=media_dict))
+                songs.append(media_dict)
             elif media_dict['kind'] == 'feature-movie':
-                movies.append(Movie(json=media_dict))
+                movies.append(media_dict)
             else:
-                media.append(Media(json=media_dict))
+                media.append(media_dict)
         else:
-            media.append(Media(json=media_dict))
-    all_media_list.extend(songs)
-    all_media_list.extend(movies)
-    all_media_list.extend(media)
+            media.append(media_dict)
     
    
     # here we present the media cleanly by calling the 
@@ -195,7 +193,8 @@ def media_list_parser(media_dict_list):
         print(f"None")
     else:
         for song in songs:
-            print(f"{counter} {song.info()}")
+            song_results = Song(json=song)
+            print(f"{counter} {song_results.info()}")
             counter += 1  
 
     print(f"\nMOVIES")
@@ -203,7 +202,8 @@ def media_list_parser(media_dict_list):
         print(f"None")
     else:
         for movie in movies:
-            print(f"{counter} {movie.info()}")
+            movie_results = Movie(json=movie)
+            print(f"{counter} {movie_results.info()}")
             counter += 1
 
     print(f"\nOTHER MEDIA")
@@ -211,39 +211,30 @@ def media_list_parser(media_dict_list):
         print(f"None\n")
     else:
         for m in media:
-            print(f"{counter} {m.info()}")
+            media_results = Media(json=m)
+            print(f"{counter} {media_results.info()}")
             counter += 1
 
     if len(songs) == 0 and len(movies) == 0 and len(media) == 0:
         print("Looks like nothing's here. Check your spelling?\n")
 
-    return all_media_list
 
-    # print(f"MOVIE LIST: {movies}")
-    # print(f"SONG LIST: {songs}")
-    # print(f"MEDIA LIST: {media}")
     # we need to index the list
     # grab the url method
     # and open the link in a browser
-
-
-# def more_info():
-#     '''
-#     '''
-#     additional_info = input(f"Enter a number for more info, or a search term, or exit: ")
-
 
 ############################## main #####################################
 
 if __name__ == "__main__":
     # your control code for Part 4 (interactive search) should go here
+    json_to_parse = get_media(params=user_entry_params_intro())
+    media_dict_list = json_to_parse['results']
     i = 0
     while i == 0:
-        json_to_parse = get_media(params=user_entry_params_intro())
-        media_dict_list = json_to_parse['results'] # list of dictionaries
+        # list of dictionaries
         media_list_parser(media_dict_list)
         break
-    
+
     i = 1
     while i != 0:
 
@@ -254,13 +245,20 @@ if __name__ == "__main__":
 
         elif more_info.isnumeric():
             more_info = int(more_info)
-
+            all_media_list.extend(songs)
+            all_media_list.extend(movies)
+            all_media_list.extend(media)
             for i in range(len(all_media_list)):
                 if i == (more_info - 1):
                     search_query = Media(json=all_media_list[i])
+                    print(f"Launching {search_query.url} in web browser...")
                     webbrowser.open(search_query.url)
 
         else:
+            songs = []
+            movies = []
+            media = []
+            all_media_list = []
             search_item = f"term={more_info}"
             json_to_parse = get_media(params=search_item)
             media_dict_list = json_to_parse['results'] # list of dictionaries
