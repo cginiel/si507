@@ -1,15 +1,6 @@
 from random import randrange
 import random
 
-#### STUDY GROUP ####
-"""
-I collaborated with Danny Rosa 
-and Pisacha Wichianchan on this assignment. 
-
-"""
-#####################
-
-
 ## CONSTANTS ##
 
 ##Art by Hayley Jane Wakenshaw - https://www.asciiart.eu/animals/dogs
